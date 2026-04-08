@@ -10,7 +10,7 @@ This is not a competition to write the most code. It is about showing how AI too
 
 ### AI coding tools and your application
 
-You will use AI coding tools (GitHub Copilot, Amazon Q Developer, Gemini Code Assist, or similar) to help you plan, write, and test your prototype. These tools assist your development process.
+You will use AI coding tools (GitHub Copilot, Amazon Kiro, Gemini Code Assist, or similar) to help you plan, write, and test your prototype. These tools assist your development process.
 
 > The event does not provide access to AI models (such as large language model APIs) for use within your application.
 
