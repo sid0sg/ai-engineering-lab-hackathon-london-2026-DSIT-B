@@ -29,12 +29,6 @@ The four challenges below are examples drawn from real cross-government needs. T
 
 Your solution should be demoable by the end of the day.
 
-### Open brief
-
-Teams are actively encouraged to bring their own problems. If you work with a process, a dataset, or a user experience that frustrates you or the people around you, this is a good opportunity to do something about it. The four challenges above are examples — you are not required to use them.
-
-To propose an open brief, speak to a facilitator during the morning session before 10:00. Your problem must be achievable as a working prototype in one day and use open or synthetic data.
-
 ### Challenge 1: From PDF to digital service
 
 In many parts of government, official processes still rely on PDF forms: download, print, fill in by hand, scan, and post or email back. Citizens receive no confirmation, have no way to check status, and may find out weeks later that something was missing. The teams receiving those submissions handle them manually at every step.
@@ -58,6 +52,12 @@ This challenge is about the caseworker who needs the right information quickly, 
 Departments hold significant information about their people, projects, and operational workload — but it is distributed across systems that were not designed to work together. When a minister asks a director how many people are working on a priority programme, the answer takes days to piece together. When a head of operations wants to know which teams are under pressure, they have to ask around rather than look it up.
 
 This challenge is about the leader who needs a clear picture to make a decision, the operations manager who can see the pressure but cannot surface it in a form anyone can act on, and the team whose workload is invisible to the rest of the organisation.
+
+### Open brief
+
+Teams are actively encouraged to bring their own problems. If you work with a process, a dataset, or a user experience that frustrates you or the people around you, this is a good opportunity to do something about it. The four challenges above are examples — you are not required to use them.
+
+To propose an open brief, speak to a facilitator during the morning session before 10:00. Your problem must be achievable as a working prototype in one day and use open or synthetic data.
 
 ## Judging
 
