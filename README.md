@@ -77,18 +77,17 @@ Your final score combines your milestone points with the judge review. There are
 | 09:45 | Lightning talk: Version 1 (theme TBC) |
 | 09:55 | Build phase |
 | 11:00 | Morning break |
-| 11:30 | Lightning talk: AWS (theme TBC) |
+| 11:30 | Lightning talk: AWS: Pushing Security to the Left with Agentic AI|
 | 11:40 | Build phase (continued) |
 | 12:30 | Lunch break (optional working break) |
-| 13:45 | Lightning talk: Anthropic (theme TBC) |
+| 13:45 | Lightning talk: Anthropic: Let Claude Cook |
 | 13:55 | Build phase (resumed) |
 | 14:30 | Afternoon break |
-| 14:45 | Lightning talk: Google (theme TBC) |
+| 14:45 | Lightning talk: Microsoft (theme TBC) |
 | 14:55 | Build phase (final stretch) |
 | 15:30 | Final review — judges return to teams for rubric scoring |
-| 16:15 | Lightning talk: Microsoft (theme TBC; during results tabulation) |
+| 16:15 | Lightning talk: Google (theme TBC; during results tabulation) |
 | 16:30 | Winners announced and wrap-up |
-| 16:40 | Hard finish |
 
 ## Team formation
 
