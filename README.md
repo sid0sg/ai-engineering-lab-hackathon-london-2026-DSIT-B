@@ -25,51 +25,45 @@ By the end of the day, your team will have:
 
 ## The challenges
 
-Your team picks one of the four challenges below, or proposes an open brief. All challenges are drawn from real cross-government needs. Your solution should be demoable by the end of the day.
+The four challenges below are examples drawn from real cross-government needs. They are provided to give your team a well-defined problem with starter data and hints. You are not required to use them. If your team has a problem from your own work that you would rather tackle, bring it.
+
+Your solution should be demoable by the end of the day.
 
 ### Open brief
 
-If your team has a relevant problem you care about, pitch it to a facilitator during the morning session. It must be achievable in one day and use open or synthetic data.
+Teams are actively encouraged to bring their own problems. If you work with a process, a dataset, or a user experience that frustrates you or the people around you, this is a good opportunity to do something about it. The four challenges above are examples — you are not required to use them.
+
+To propose an open brief, speak to a facilitator during the morning session before 10:00. Your problem must be achievable as a working prototype in one day and use open or synthetic data.
 
 ### Challenge 1: From PDF to digital service
 
-Government teams still rely on PDF forms and paper-based processes for tasks that should be simple digital services. Pick a real or realistic government form — a licence application, a reporting template, an internal request process — and turn it into a working digital service that a member of the public or a civil servant could actually use.
+In many parts of government, official processes still rely on PDF forms: download, print, fill in by hand, scan, and post or email back. Citizens receive no confirmation, have no way to check status, and may find out weeks later that something was missing. The teams receiving those submissions handle them manually at every step.
 
-Your service should follow GOV.UK design patterns and meet WCAG 2.2 accessibility standards. Focus on building something that works end to end for a single user journey rather than covering every edge case.
-
-This is a good starting point if your team is newer to AI coding tools. You can one-shot a working form in minutes and spend the rest of the day iterating.
-
-Starting points: any publicly available government PDF form (search GOV.UK for forms in your policy area), the GOV.UK Design System at https://design-system.service.gov.uk, the GOV.UK Prototype Kit.
+This challenge is about the citizen and the caseworker on either side of that process — and what a genuinely better experience looks like for both. A good starting point if your team is newer to AI coding tools.
 
 ### Challenge 2: Unlocking the dark data
 
-Vast amounts of government knowledge is trapped in unstructured documents — Word files, PDFs, and spreadsheets — scattered across departmental drives and websites. Build a solution that makes this content searchable, extractable, and usable by citizens and officials alike, without requiring manual migration or transformation.
+Government produces an enormous amount of guidance, policy, and procedural documentation. Most of it is published. Very little of it is genuinely findable. Citizens cannot get a direct answer to a specific question. Officials spend significant time locating guidance that exists somewhere but is not easily accessible. The GOV.UK App is building chat capabilities that depend on this content being structured — and right now, most of it is not.
 
-Bonus: define a standard format for a GOV.UK app or chat interface to consume the extracted information.
+This challenge is about the citizen who wants an answer, the official who needs the right policy at the right moment, and the infrastructure that makes both possible.
 
-Starting points: publicly available government documents from data.gov.uk, GOV.UK Content API (for comparison with structured content), Office for National Statistics publication archives, synthetic Word and PDF files.
+### Challenge 3: Supporting casework decisions
 
-### Challenge 3: The intelligent case worker
+Caseworkers across government spend a significant part of their day on information-gathering tasks — reading through notes to understand a case, looking up which policy applies, checking whether evidence has arrived, identifying what action is needed next. These are tasks that follow predictable patterns. The judgement and decision-making that genuinely requires a person gets less time as a result.
 
-Thousands of caseworking systems exist across government, each siloed and manually intensive. Build reusable capabilities that work across these systems to summarise cases, automate routine workflows, and surface relevant policy in real time to support human decision-making.
-
-If your team has access to AI models (through your department, personal accounts, or locally hosted models), you can integrate them into your solution. If not, you can mock AI endpoints to demonstrate how the system would work with model access. The judging focuses on the quality of the prototype and the approach, not on whether you have a live model behind it.
-
-Starting points: synthetic case data and policy extracts will be provided on the day. GOV.UK Content API for policy pages, published process documentation from DWP, HMRC, or similar departments, and open source casework frameworks are also available.
+This challenge is about the caseworker who needs the right information quickly, the team leader who needs visibility of risk across their caseload, and the applicant who is waiting for a decision and does not know where their case stands.
 
 ### Challenge 4: Knowing your own organisation
 
-Departments have surprisingly little visibility of how their people and resources are allocated. Managers struggle to answer basic questions: which teams are working on which projects, where the bottlenecks are, who is over-allocated, and what capacity exists. This information is scattered across HR systems, project trackers, and spreadsheets that do not talk to each other.
+Departments hold significant information about their people, projects, and operational workload — but it is distributed across systems that were not designed to work together. When a minister asks a director how many people are working on a priority programme, the answer takes days to piece together. When a head of operations wants to know which teams are under pressure, they have to ask around rather than look it up.
 
-Build a tool that takes workforce and allocation data and gives a department a clear, usable picture of how its resources are deployed. Focus on answering one or two questions that a department head would actually ask, such as "Where are my bottlenecks?" or "Which teams are understaffed for the work they have been assigned?"
-
-Starting points: synthetic HR and resource allocation data will be provided on the day. You can also generate your own mock data as a warm-up exercise. Civil Service statistics published by the Cabinet Office and ONS public sector employment data are available for additional context.
+This challenge is about the leader who needs a clear picture to make a decision, the operations manager who can see the pressure but cannot surface it in a form anyone can act on, and the team whose workload is invisible to the rest of the organisation.
 
 ## Judging
 
 Scoring runs throughout the day, not just at the end. Your team earns points for reaching milestones during the build phase, tracked on a live dashboard visible to the room. Milestones include things like setting up your repository, producing a first working prototype, and demonstrating a complete user journey.
 
-When the final build stretch ends at 15:30, judges return to their assigned teams for final review and rubric scoring until 16:15. Each pair asks a consistent set of questions about what you built, how you used AI tools, and what you would do next. A Microsoft lightning talk runs from 16:15 while results are tabulated, then winners are announced and the event wraps up from 16:30.
+At the end of the build phase, judge pairs visit every team at their tables. Each pair asks a consistent set of questions about what you built, how you used AI tools, and what you would do next. They score against a simple rubric.
 
 Your final score combines your milestone points with the judge review. There are no stage presentations.
 
@@ -96,19 +90,15 @@ Your final score combines your milestone points with the judge review. There are
 | 16:30 | Winners announced and wrap-up |
 | 16:40 | Hard finish |
 
-The agenda may shift by 15 to 30 minutes depending on the number of teams. Your event lead will communicate any changes on the day.
-
 ## Team formation
 
-Teams are three to five people, pre-assigned before arrival. When you walk in, you already have a group to sit with. Each team is aligned to a Version 1 Forward Deployed Engineer (FDE) who acts as your technical anchor throughout the day. If you registered without a team, you will be placed into one on the day.
+Teams are three to five people, pre-assigned before arrival. When you walk in, you already have a group to sit with. Each team is supported by a Forward Deployed Engineer (FDE) from Version 1, who acts as your technical anchor throughout the day. FDEs are experienced engineers who can help you scope your approach, unblock technical problems, and point you to the right resources. They will not write your code for you, but they know the challenges well and can help your team make decisions when you are stuck. If you registered without a team, you will be placed into one on the day.
 
 ## Materials included
 
 This workshop includes:
 
 - `README.md` (this file) — overview and day structure
-- `SETUP-GUIDE.md` — what to do before the event
-- `participant-handout.md` — quick reference for the day
 
 ---
 Version: 1.0
