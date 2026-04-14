@@ -10,7 +10,7 @@ This is not a competition to write the most code. It is about showing how AI too
 
 ### AI coding tools and your application
 
-You will use AI coding tools (GitHub Copilot, Amazon Kiro, Gemini Code Assist, or similar) to help you plan, write, and test your prototype. These tools assist your development process.
+You will use AI coding tools (GitHub Copilot, Amazon Kiro, Gemini Code Assist, or similar) to help you plan, write, and test your prototype. These tools assist your development process. The [AI Engineering Lab repository](https://github.com/govuk-digital-backbone/aiengineeringlab) has resources and guidance on getting the most from AI coding tools.
 
 > The event does not provide access to AI models (such as large language model APIs) for use within your application.
 
@@ -29,11 +29,23 @@ The four challenges below are examples drawn from real cross-government needs. T
 
 Your solution should be demoable by the end of the day.
 
+### Open brief
+
+Teams are actively encouraged to bring their own problems. If you work with a process, a dataset, or a user experience that frustrates you or the people around you, this is a good opportunity to do something about it. The four challenges above are examples — you are not required to use them.
+
+To propose an open brief, speak to a facilitator during the morning session before 10:00. Your problem must be achievable as a working prototype in one day and use open or synthetic data.
+
+[Read the full open brief guidance — including prompts to help you frame your problem](open-brief.md)
+
 ### Challenge 1: From PDF to digital service
 
 In many parts of government, official processes still rely on PDF forms: download, print, fill in by hand, scan, and post or email back. Citizens receive no confirmation, have no way to check status, and may find out weeks later that something was missing. The teams receiving those submissions handle them manually at every step.
 
 This challenge is about the citizen and the caseworker on either side of that process — and what a genuinely better experience looks like for both. A good starting point if your team is newer to AI coding tools.
+
+Use `challenge-1/FORM-LIC-001-licence-application.pdf` as the default sample form for this challenge.
+
+[Read the full challenge brief](challenge-01-from-pdf-to-digital-service.md)
 
 ### Challenge 2: Unlocking the dark data
 
@@ -41,11 +53,17 @@ Government produces an enormous amount of guidance, policy, and procedural docum
 
 This challenge is about the citizen who wants an answer, the official who needs the right policy at the right moment, and the infrastructure that makes both possible.
 
+Starter data is provided in `challenge-2/` — choose between structured files (20 text-based documents in HTML, Markdown, and plain text) and/or unstructured files (23 binary-format documents including Word, PDF, and spreadsheets).
+
+[Read the full challenge brief](challenge-02-unlocking-the-dark-data.md)
+
 ### Challenge 3: Supporting casework decisions
 
 Caseworkers across government spend a significant part of their day on information-gathering tasks — reading through notes to understand a case, looking up which policy applies, checking whether evidence has arrived, identifying what action is needed next. These are tasks that follow predictable patterns. The judgement and decision-making that genuinely requires a person gets less time as a result.
 
 This challenge is about the caseworker who needs the right information quickly, the team leader who needs visibility of risk across their caseload, and the applicant who is waiting for a decision and does not know where their case stands.
+
+[Read the full challenge brief](challenge-03-supporting-casework-decisions.md)
 
 ### Challenge 4: Knowing your own organisation
 
@@ -53,11 +71,7 @@ Departments hold significant information about their people, projects, and opera
 
 This challenge is about the leader who needs a clear picture to make a decision, the operations manager who can see the pressure but cannot surface it in a form anyone can act on, and the team whose workload is invisible to the rest of the organisation.
 
-### Open brief
-
-Teams are actively encouraged to bring their own problems. If you work with a process, a dataset, or a user experience that frustrates you or the people around you, this is a good opportunity to do something about it. The four challenges above are examples — you are not required to use them.
-
-To propose an open brief, speak to a facilitator during the morning session before 10:00. Your problem must be achievable as a working prototype in one day and use open or synthetic data.
+[Read the full challenge brief](challenge-04-knowing-your-own-organisation.md)
 
 ## Judging
 
@@ -74,20 +88,21 @@ Your final score combines your milestone points with the judge review. There are
 | 08:30 | Arrival, registration and breakfast |
 | 09:00 | Welcome and kick-off |
 | 09:15 | Problem selection and team planning |
-| 09:45 | Lightning talk: Version 1 (theme TBC) |
+| 09:45 | Lightning talk: Version 1: From Requirements to Release - AI's Role Across the SDLC|
 | 09:55 | Build phase |
 | 11:00 | Morning break |
-| 11:30 | Lightning talk: AWS: Pushing Security to the Left with Agentic AI|
-| 11:40 | Build phase (continued) |
+| 11:30 | Lightning talk: Microsoft: Lightning Talk: One Platform, Many Models — Choice at the Core|
+| 11:45 | Build phase (continued) |
 | 12:30 | Lunch break (optional working break) |
 | 13:45 | Lightning talk: Anthropic: Let Claude Cook |
 | 13:55 | Build phase (resumed) |
 | 14:30 | Afternoon break |
-| 14:45 | Lightning talk: Microsoft (theme TBC) |
-| 14:55 | Build phase (final stretch) |
-| 15:30 | Final review — judges return to teams for rubric scoring |
-| 16:15 | Lightning talk: Google (theme TBC; during results tabulation) |
+| 14:45 | Build phase (final stretch) |
+| 15:15 | Final review — judges return to teams for rubric scoring |
+| 16:00 | Lightning talk: AWS: Pushing Security to the Left with Agentic AI|
+| 16:15 | Top 3 Finalist Presentations|
 | 16:30 | Winners announced and wrap-up |
+| 16:45 | Post-Event Networking |
 
 ## Team formation
 
@@ -98,6 +113,21 @@ Teams are three to five people, pre-assigned before arrival. When you walk in, y
 This workshop includes:
 
 - `README.md` (this file) — overview and day structure
+- `SETUP-GUIDE.md` — what to do before the event
+- `participant-handout.md` — quick reference for the day
+- `open-brief.md` — guidance for teams bringing their own problem, including prompts to frame and scope it
+- `challenge-01-from-pdf-to-digital-service.md` — detailed brief, data, and prompts for challenge 1
+- `challenge-1/FORM-LIC-001-licence-application.pdf` — sample licence application PDF for challenge 1
+- `challenge-02-unlocking-the-dark-data.md` — detailed brief, data, and prompts for challenge 2
+- `challenge-2/` — starter data for challenge 2: `structured_files/` (text-based documents) and `unstructured_files/` (binary-format documents)
+- `challenge-03-supporting-casework-decisions.md` — detailed brief, data, and prompts for challenge 3
+- `challenge-04-knowing-your-own-organisation.md` — detailed brief, data, and prompts for challenge 4
+
+## Feedback survey
+
+Please complete the feedback survey at the end of the day. The survey link and QR code will be displayed on screen at the close of the event. You can also access it here:
+
+[AI Engineering Lab hackathon feedback survey](insert-survey-url)
 
 ---
 Version: 1.0
