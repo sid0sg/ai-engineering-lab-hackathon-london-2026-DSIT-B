@@ -350,6 +350,47 @@ router.post('/:formId/publish', async (req: Request, res: Response): Promise<voi
   });
 });
 
+// ── POST /api/forms/:formId/submit ────────────────────────────────────────────
+// Accepts a form submission payload, logs it, returns a reference number.
+
+router.post('/:formId/submit', async (req: Request, res: Response): Promise<void> => {
+  const { formId } = req.params;
+  const record = await formStore.findById(formId);
+
+  if (!record) {
+    sendError(res, 404, 'FORM_NOT_FOUND');
+    return;
+  }
+
+  const submissionData = req.body as Record<string, unknown>;
+  const referenceNumber = `REF-${Date.now()}-${Math.random().toString(36).slice(2, 7).toUpperCase()}`;
+  const submittedAt = new Date().toISOString();
+
+  // Log submission to audit trail
+  await auditStore.create({
+    id: uuidv4(),
+    formId,
+    action: 'FORM_SUBMITTED',
+    timestamp: submittedAt,
+    details: { referenceNumber, fieldCount: Object.keys(submissionData).length },
+  });
+
+  // Log the structured payload for observability
+  console.log('[FORM SUBMISSION]', JSON.stringify({
+    formId,
+    referenceNumber,
+    submittedAt,
+    data: submissionData,
+  }, null, 2));
+
+  res.status(200).json({
+    formId,
+    referenceNumber,
+    submittedAt,
+    status: 'submitted',
+  });
+});
+
 // ── GET /api/forms/:formId/audit ──────────────────────────────────────────────
 
 router.get('/:formId/audit', async (req: Request, res: Response): Promise<void> => {

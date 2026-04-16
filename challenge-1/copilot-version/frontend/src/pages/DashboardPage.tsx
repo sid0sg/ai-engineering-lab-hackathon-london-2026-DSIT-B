@@ -122,9 +122,19 @@ export default function DashboardPage(): React.JSX.Element {
                     </td>
                     <td className="govuk-table__cell">
                       {(form.status === 'extraction-complete' || form.status === 'published') ? (
-                        <Link to={`/forms/${form.formId}/edit`} className="govuk-link">
-                          Edit
-                        </Link>
+                        <>
+                          <Link to={`/forms/${form.formId}/edit`} className="govuk-link">
+                            Edit
+                          </Link>
+                          {form.status === 'published' && (
+                            <>
+                              {' '}
+                              <Link to={`/render/${form.formId}`} className="govuk-link">
+                                View form
+                              </Link>
+                            </>
+                          )}
+                        </>
                       ) : (
                         <span className="govuk-body govuk-!-colour-secondary">—</span>
                       )}

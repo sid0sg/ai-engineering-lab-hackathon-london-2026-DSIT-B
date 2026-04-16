@@ -1,0 +1,21 @@
+{
+  "feature": "F07-dynamic-form-renderer",
+  "sprint": "04",
+  "attempt": 1,
+  "lastUpdatedAt": "2026-04-16T22:40:00.000Z",
+  "criteria": {
+    "AC1": { "status": "verified", "description": "Renderer route accessible via /render/:formId", "evidence": "Route added in App.tsx: <Route path='/render/:formId' element={<FormRendererPage />} />" },
+    "AC2": { "status": "verified", "description": "On load, fetches published schema from GET /api/forms/:formId/schema", "evidence": "getFormSchema() in api.ts fetches from /api/forms/:formId/schema; called in FormRendererPage useEffect" },
+    "AC3": { "status": "verified", "description": "Renders correct govuk-frontend component for each field type", "evidence": "FormFieldRenderer switch handles: text→TextInput, textarea→TextareaInput, date→DateInput (day/month/year), number→NumberInput (inputmode=numeric), radio→RadioInput, checkbox→CheckboxInput, select→SelectInput" },
+    "AC4": { "status": "verified", "description": "Form title from schema displayed as <h1> using GOV.UK heading pattern", "evidence": "<h1 className='govuk-heading-xl'>{schema.title}</h1> in FormRendererPage" },
+    "AC5": { "status": "verified", "description": "All rendered fields have visible labels with correct htmlFor/id association", "evidence": "Each field component has <label htmlFor={fieldId}> associated with <input id={fieldId}>; date uses fieldset/legend; radio/checkbox use fieldset/legend + individual labels" },
+    "AC6": { "status": "verified", "description": "Required fields show '(required)' hint and are validated on submit", "evidence": "Required hint shown via <span className='govuk-hint'>(required)</span>; validateFields() checks required fields on submit" },
+    "AC7": { "status": "verified", "description": "On submit with missing required fields: GOV.UK error summary shown at top", "evidence": "Error summary uses govuk-error-summary pattern with role=alert, aria-labelledby, errorSummaryRef.focus() on validation failure" },
+    "AC8": { "status": "verified", "description": "Error summary links focus to the relevant field on activation (WCAG 2.4.3)", "evidence": "onClick handler on each error link calls document.querySelector(anchor).focus() to programmatically focus the target field" },
+    "AC9": { "status": "verified", "description": "On successful submit: structured JSON payload logged/posted to confirmation endpoint", "evidence": "submitForm() POSTs to /api/forms/:formId/submit; backend logs payload with console.log('[FORM SUBMISSION]', ...) and stores audit entry" },
+    "AC10": { "status": "verified", "description": "Confirmation page shows GOV.UK panel component with reference number", "evidence": "ConfirmationPanel renders <div class='govuk-panel govuk-panel--confirmation'> with <h1>Form submitted</h1> and referenceNumber from API response" },
+    "AC11": { "status": "verified", "description": "Full keyboard journey from start to submission works without mouse", "evidence": "All interactive elements are native HTML form controls or <a>/<button> - fully keyboard navigable; no mouse-only interactions; error summary receives focus on failure" },
+    "AC12": { "status": "verified", "description": "GOV.UK page structure: header, phase banner (Beta), main content, footer", "evidence": "FormRendererPage wraps in GovLayout component which provides header, phase banner (Beta), skip link, main content, footer" },
+    "AC13": { "status": "verified", "description": "If schema fetch fails, show GOV.UK error page with clear message", "evidence": "loadError state triggers govuk-error-summary block with the error message and link to return to dashboard" }
+  }
+}
