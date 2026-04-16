@@ -10,9 +10,12 @@
     "lint": "eslint src --ext .ts,.tsx"
   },
   "dependencies": {
+    "@types/uuid": "^9.0.8",
+    "govuk-frontend": "^5.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "govuk-frontend": "^5.2.0"
+    "react-router-dom": "^7.14.1",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.37",

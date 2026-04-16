@@ -1,21 +1,16 @@
 import React from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import DashboardPage from './pages/DashboardPage';
+import UploadPage from './pages/UploadPage';
+import EditorPage from './pages/EditorPage';
 
-/**
- * App shell – Sprint 01 placeholder.
- * Full Builder UI delivered in Sprint 03.
- */
 export default function App(): React.JSX.Element {
   return (
-    <div className="govuk-width-container">
-      <main className="govuk-main-wrapper" id="main-content" role="main">
-        <h1 className="govuk-heading-xl">PDF to Digital Form Builder</h1>
-        <p className="govuk-body">
-          Builder UI — coming in Sprint 03.
-        </p>
-        <p className="govuk-body">
-          Backend API running at <code>/api/health</code>
-        </p>
-      </main>
-    </div>
+    <Routes>
+      <Route path="/" element={<DashboardPage />} />
+      <Route path="/upload" element={<UploadPage />} />
+      <Route path="/forms/:formId/edit" element={<EditorPage />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   );
 }

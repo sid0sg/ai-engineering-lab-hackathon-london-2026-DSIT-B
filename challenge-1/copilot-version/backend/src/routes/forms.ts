@@ -128,9 +128,22 @@ router.post(
 
 router.get('/', async (_req: Request, res: Response): Promise<void> => {
   const records = await formStore.findAll();
-  // Strip file buffers from response (security: don't expose binary)
-  const safe = records.map(({ fileBuffer: _buf, ...rest }) => rest);
-  res.status(200).json({ forms: safe });
+  const forms = await Promise.all(
+    records.map(async (record) => {
+      let title = record.originalFileName; // fallback if schema not yet extracted
+      if (record.draftSchemaId) {
+        const schema = await schemaStore.findById(record.draftSchemaId);
+        if (schema) title = schema.title;
+      }
+      return {
+        formId: record.formId,
+        title,
+        status: record.status,
+        createdAt: record.createdAt,
+      };
+    })
+  );
+  res.status(200).json({ forms });
 });
 
 // ── GET /api/forms/:formId ────────────────────────────────────────────────────
@@ -145,7 +158,14 @@ router.get('/:formId', async (req: Request, res: Response): Promise<void> => {
   }
 
   const { fileBuffer: _buf, ...safe } = record;
-  res.status(200).json(safe);
+
+  // Include current draft schema in response (AC11)
+  let schema = null;
+  if (safe.draftSchemaId) {
+    schema = await schemaStore.findById(safe.draftSchemaId);
+  }
+
+  res.status(200).json({ ...safe, schema });
 });
 
 // ── GET /api/forms/:formId/schema ─────────────────────────────────────────────
@@ -171,6 +191,51 @@ router.get('/:formId/schema', async (req: Request, res: Response): Promise<void>
   }
 
   res.status(200).json(schema);
+});
+
+// ── PUT /api/forms/:formId/fields ─────────────────────────────────────────────
+
+router.put('/:formId/fields', async (req: Request, res: Response): Promise<void> => {
+  const { formId } = req.params;
+  const record = await formStore.findById(formId);
+
+  if (!record) {
+    sendError(res, 404, 'FORM_NOT_FOUND');
+    return;
+  }
+
+  if (!record.draftSchemaId) {
+    sendError(res, 404, 'SCHEMA_NOT_FOUND');
+    return;
+  }
+
+  const schema = await schemaStore.findById(record.draftSchemaId);
+  if (!schema) {
+    sendError(res, 404, 'SCHEMA_NOT_FOUND');
+    return;
+  }
+
+  const { fields } = req.body as { fields: unknown };
+  if (!Array.isArray(fields)) {
+    sendError(res, 400, 'INVALID_FIELDS');
+    return;
+  }
+
+  const updatedSchema = await schemaStore.update(record.draftSchemaId, {
+    fields: fields as typeof schema.fields,
+    updatedAt: new Date().toISOString(),
+    version: schema.version + 1,
+  });
+
+  await auditStore.create({
+    id: uuidv4(),
+    formId,
+    action: 'FIELDS_UPDATED',
+    timestamp: new Date().toISOString(),
+    details: { fieldCount: (fields as unknown[]).length, version: schema.version + 1 },
+  });
+
+  res.status(200).json({ formId, schema: updatedSchema });
 });
 
 // ── GET /api/forms/:formId/audit ──────────────────────────────────────────────

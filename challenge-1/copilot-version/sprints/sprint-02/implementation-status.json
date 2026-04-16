@@ -1,0 +1,23 @@
+{
+  "feature": "F03 Form Builder UI",
+  "sprint": "02",
+  "attempt": 1,
+  "lastUpdatedAt": "2026-04-16T14:55:00.000Z",
+  "criteria": {
+    "AC1": { "status": "verified", "description": "Vite + React project scaffolded under /frontend with TypeScript", "evidence": "frontend/tsconfig.json, vite.config.ts exist; tsc --noEmit passes" },
+    "AC2": { "status": "verified", "description": "Dashboard page: lists forms from GET /api/forms", "evidence": "frontend/src/pages/DashboardPage.tsx - calls listForms() from api.ts, renders GOV.UK table" },
+    "AC3": { "status": "verified", "description": "Upload page: GOV.UK file-upload posts PDF to POST /api/forms/upload", "evidence": "frontend/src/pages/UploadPage.tsx - govuk-file-upload input, posts via uploadPdf() FormData" },
+    "AC4": { "status": "verified", "description": "After upload, redirects to form editor page for the new form", "evidence": "UploadPage.tsx line: navigate(`/forms/${result.formId}/edit`)" },
+    "AC5": { "status": "verified", "description": "Form editor page: displays field list from draft schema", "evidence": "frontend/src/pages/EditorPage.tsx - calls getForm(), renders FieldRow for each field" },
+    "AC6": { "status": "verified", "description": "Field edit: label, type, required", "evidence": "EditorPage.tsx FieldRow: govuk-input for label, govuk-select for type, govuk-checkboxes for required" },
+    "AC7": { "status": "verified", "description": "Add field button: adds new field row with defaults", "evidence": "EditorPage.tsx handleAddField() uses uuid() to add new field, focuses label input" },
+    "AC8": { "status": "verified", "description": "Delete field button with confirmation", "evidence": "EditorPage.tsx handleDelete() calls window.confirm() before removing field" },
+    "AC9": { "status": "verified", "description": "Save button: PUT /api/forms/:formId/fields", "evidence": "EditorPage.tsx handleSave() → saveFields() → PUT /api/forms/:formId/fields; backend route added in backend/src/routes/forms.ts" },
+    "AC10": { "status": "verified", "description": "All inputs use govuk-frontend components", "evidence": "govuk-input, govuk-select, govuk-checkboxes, govuk-button, govuk-file-upload classes used throughout" },
+    "AC11": { "status": "verified", "description": "All inputs have visible labels with correct htmlFor/id association", "evidence": "All inputs have matching id/htmlFor pairs; checkboxes use fieldset/legend" },
+    "AC12": { "status": "verified", "description": "GOV.UK page structure: header, phase banner, back link, main, footer", "evidence": "frontend/src/components/GovLayout.tsx - skip link, govuk-header, phase-banner, back link, main, footer" },
+    "AC13": { "status": "verified", "description": "Error display: inline errors under fields on save failure", "evidence": "EditorPage.tsx: govuk-error-summary + govuk-error-message per field; UploadPage.tsx same pattern" },
+    "AC14": { "status": "verified", "description": "Loading state: disable save button while saving", "evidence": "EditorPage.tsx: disabled={saving} aria-disabled={saving} on save button; text changes to 'Saving…'" },
+    "AC15": { "status": "verified", "description": "Full keyboard navigation through all controls", "evidence": "All controls are native HTML elements with visible labels; focus management on add/delete; skip link; no div-click traps" }
+  }
+}
