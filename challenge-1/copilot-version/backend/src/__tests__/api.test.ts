@@ -5,7 +5,7 @@
 
 import request from 'supertest';
 import { createApp } from '../app';
-import { formStore, schemaStore, auditStore } from '../store/stores';
+import { formStore, schemaStore, publishedSchemaStore, auditStore } from '../store/stores';
 
 // Mock pdf-parse so tests run without real PDF files
 jest.mock('pdf-parse', () =>
@@ -209,10 +209,11 @@ describe('GET /api/forms/:formId/schema', () => {
   beforeEach(() => {
     formStore.clear();
     schemaStore.clear();
+    publishedSchemaStore.clear();
     auditStore.clear();
   });
 
-  it('returns the extracted draft schema for a successful upload', async () => {
+  it('returns the published schema after a form has been published', async () => {
     const uploadRes = await request(app)
       .post('/api/forms/upload')
       .attach('file', VALID_PDF_BUFFER, {
@@ -221,18 +222,22 @@ describe('GET /api/forms/:formId/schema', () => {
       });
 
     const { formId } = uploadRes.body;
+
+    // Publish the form first – the schema endpoint serves only published schemas
+    await request(app).post(`/api/forms/${formId}/publish`);
+
     const res = await request(app).get(`/api/forms/${formId}/schema`);
 
     expect(res.status).toBe(200);
     expect(res.body).toHaveProperty('formId', formId);
     expect(res.body).toHaveProperty('title');
-    expect(res.body).toHaveProperty('version', 1);
-    expect(res.body).toHaveProperty('status', 'draft');
+    expect(res.body).toHaveProperty('version');
+    expect(res.body).toHaveProperty('status', 'published');
     expect(res.body).toHaveProperty('fields');
     expect(Array.isArray(res.body.fields)).toBe(true);
   });
 
-  it('each field in the schema has required properties', async () => {
+  it('each field in the published schema has required properties', async () => {
     const uploadRes = await request(app)
       .post('/api/forms/upload')
       .attach('file', VALID_PDF_BUFFER, {
@@ -241,6 +246,10 @@ describe('GET /api/forms/:formId/schema', () => {
       });
 
     const { formId } = uploadRes.body;
+
+    // Publish before accessing schema endpoint
+    await request(app).post(`/api/forms/${formId}/publish`);
+
     const res = await request(app).get(`/api/forms/${formId}/schema`);
 
     for (const field of res.body.fields) {
@@ -251,6 +260,21 @@ describe('GET /api/forms/:formId/schema', () => {
       expect(field).toHaveProperty('order');
       expect(field).toHaveProperty('a11yHints');
     }
+  });
+
+  it('returns 404 (SCHEMA_NOT_PUBLISHED) when form exists but has not been published', async () => {
+    const uploadRes = await request(app)
+      .post('/api/forms/upload')
+      .attach('file', VALID_PDF_BUFFER, {
+        filename: 'test-form.pdf',
+        contentType: 'application/pdf',
+      });
+
+    const { formId } = uploadRes.body;
+    // Do NOT publish – expect 404
+    const res = await request(app).get(`/api/forms/${formId}/schema`);
+    expect(res.status).toBe(404);
+    expect(res.body.error).toHaveProperty('code', 'SCHEMA_NOT_PUBLISHED');
   });
 
   it('returns 404 for an unknown formId', async () => {

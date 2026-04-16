@@ -31,6 +31,7 @@ export interface FormListItem {
   title: string;
   status: string;
   createdAt: string;
+  publishedAt?: string;
 }
 
 export interface FormRecord {

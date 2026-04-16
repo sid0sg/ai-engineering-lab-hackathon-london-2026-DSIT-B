@@ -70,6 +70,15 @@ export interface FormSchema {
   };
 }
 
+/** Tracks each saved version of the schema */
+export interface VersionEntry {
+  version: number;
+  savedAt: string;
+  fieldCount: number;
+  isPublished: boolean;
+  publishedAt?: string;
+}
+
 export interface FormRecord {
   formId: string;
   originalFileName: string;
@@ -77,8 +86,14 @@ export interface FormRecord {
   fileSizeBytes: number;
   fileBuffer?: Buffer;
   createdAt: string;
-  status: 'pending' | 'extraction-complete' | 'extraction-failed';
+  status: 'pending' | 'extraction-complete' | 'extraction-failed' | 'published';
   draftSchemaId?: string;
+  /** ID of the currently published schema snapshot */
+  publishedSchemaId?: string;
+  /** ISO timestamp of the most recent publish */
+  publishedAt?: string;
+  /** Full version history – one entry per save or publish action */
+  versionHistory?: VersionEntry[];
 }
 
 export interface AuditLogEntry {

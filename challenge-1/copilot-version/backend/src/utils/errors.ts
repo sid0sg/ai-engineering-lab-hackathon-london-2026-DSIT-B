@@ -25,6 +25,10 @@ const GOV_UK_ERROR_MESSAGES: Record<string, string> = {
     'Sorry, there is a problem with this service. Try again later.',
   SCHEMA_NOT_FOUND:
     'The form schema was not found.',
+  SCHEMA_NOT_PUBLISHED:
+    'This form has not been published yet. Publish the form before accessing the schema endpoint.',
+  INVALID_FIELDS:
+    'The fields provided are invalid. Provide a valid array of field objects.',
   VALIDATION_ERROR:
     'Enter a valid value.',
 };

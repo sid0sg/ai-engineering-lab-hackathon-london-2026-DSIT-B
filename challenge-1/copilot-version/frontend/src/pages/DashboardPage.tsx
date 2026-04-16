@@ -9,11 +9,13 @@ function statusTag(status: string): React.JSX.Element {
     'extraction-complete': 'govuk-tag--green',
     'pending': 'govuk-tag--yellow',
     'extraction-failed': 'govuk-tag--red',
+    'published': 'govuk-tag--blue',
   };
   const labelMap: Record<string, string> = {
     'extraction-complete': 'Ready',
     'pending': 'Processing',
     'extraction-failed': 'Failed',
+    'published': 'Published',
   };
   const cls = classMap[status] ?? '';
   const label = labelMap[status] ?? status;
@@ -119,7 +121,7 @@ export default function DashboardPage(): React.JSX.Element {
                       })}
                     </td>
                     <td className="govuk-table__cell">
-                      {form.status === 'extraction-complete' ? (
+                      {(form.status === 'extraction-complete' || form.status === 'published') ? (
                         <Link to={`/forms/${form.formId}/edit`} className="govuk-link">
                           Edit
                         </Link>

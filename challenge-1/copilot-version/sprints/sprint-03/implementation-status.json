@@ -1,0 +1,19 @@
+{
+  "feature": "F04-F06-save-publish-serve",
+  "sprint": "03",
+  "attempt": 1,
+  "lastUpdatedAt": "2025-01-01T00:00:00.000Z",
+  "criteria": {
+    "AC1": { "status": "verified", "description": "PUT /api/forms/:formId/fields persists the updated schema and increments the version number", "notes": "Existing behavior retained; version increments on each PUT /fields call. Tests confirm version goes 1→2→3." },
+    "AC2": { "status": "verified", "description": "Each save creates a new version entry in the in-memory store with version number and timestamp", "notes": "versionHistory array added to FormRecord; each PUT /fields appends a VersionEntry with {version, savedAt, fieldCount, isPublished}." },
+    "AC3": { "status": "verified", "description": "POST /api/forms/:formId/publish marks the current version as 'published' and sets it as the active schema", "notes": "POST /api/forms/:formId/publish endpoint added. Creates publishedSchemaStore snapshot, updates formRecord.status='published', formRecord.publishedSchemaId, formRecord.publishedAt." },
+    "AC4": { "status": "verified", "description": "Publish returns a success response with { formId, version, status: 'published', publishedAt }", "notes": "Route returns exact shape: {formId, version, status: 'published', publishedAt}. Tested in publish.test.ts." },
+    "AC5": { "status": "verified", "description": "GET /api/forms/:formId/schema returns the active published schema as JSON", "notes": "GET /schema now reads from publishedSchemaStore. Returns published schema with {formId, title, version, status:'published', fields, publishedAt}." },
+    "AC6": { "status": "verified", "description": "GET /api/forms/:formId/schema returns 404 if no published version exists for the formId", "notes": "Returns 404 SCHEMA_NOT_PUBLISHED when record.publishedSchemaId is null. Tested in both api.test.ts and publish.test.ts." },
+    "AC7": { "status": "verified", "description": "Response includes metadata: formId, version, publishedAt, title", "notes": "All four fields included in GET /schema response. publish.test.ts verifies all four." },
+    "AC8": { "status": "verified", "description": "Publish button added to the form editor UI using govuk-frontend button component", "notes": "Added govuk-button govuk-button--secondary 'Publish form' button to EditorPage.tsx with id='publish-button'." },
+    "AC9": { "status": "verified", "description": "After publishing, a GOV.UK success notification banner is shown", "notes": "govuk-notification-banner govuk-notification-banner--success shown after successful publish with version number message." },
+    "AC10": { "status": "verified", "description": "Form dashboard shows 'Published' status badge next to published forms", "notes": "DashboardPage statusTag() updated to include 'published' → govuk-tag--blue with 'Published' label." },
+    "AC11": { "status": "verified", "description": "Backend unit tests cover: save with version increment, publish, serve published schema, 404 for missing", "notes": "publish.test.ts has 25+ tests covering all four scenarios. All 90 tests pass. Coverage: branches 80.2% >= 80%." }
+  }
+}

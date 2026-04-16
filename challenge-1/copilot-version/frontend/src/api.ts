@@ -37,3 +37,20 @@ export async function saveFields(formId: string, fields: FormField[]): Promise<v
     throw new Error(err.error?.message ?? 'Save failed');
   }
 }
+
+export async function publishForm(formId: string): Promise<{
+  formId: string;
+  version: number;
+  status: string;
+  publishedAt: string;
+}> {
+  const res = await fetch(`${BASE}/forms/${formId}/publish`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({ error: { message: 'Publish failed' } })) as { error: { message: string } };
+    throw new Error(err.error?.message ?? 'Publish failed');
+  }
+  return res.json() as Promise<{ formId: string; version: number; status: string; publishedAt: string }>;
+}
