@@ -1,0 +1,38 @@
+{
+  "sprint": "02",
+  "title": "Form Builder UI",
+  "features": ["F03"],
+  "description": "React + Vite front-end for the Form Builder. Displays extracted fields and allows editing field labels, types, and required flags. Users can add and remove fields. All using GOV.UK Frontend components. No auth — hardcoded mock user.",
+  "acceptanceCriteria": [
+    "Vite + React project scaffolded under /frontend with TypeScript",
+    "Main dashboard page: lists all forms fetched from GET /api/forms with formId, title, status, createdAt",
+    "Upload page: GOV.UK file-upload component posts PDF to POST /api/forms/upload",
+    "After upload, redirects to form editor page for the new form",
+    "Form editor page: displays field list from draft schema",
+    "Field edit: change label via text input, change type via select dropdown (text/textarea/date/number/radio/checkbox/select), toggle required via checkbox",
+    "Add field button: adds a new field row with default values at the end of the list",
+    "Delete field button: removes the field from the list with confirmation",
+    "Save button: PUT /api/forms/:formId/fields sends updated field array to backend",
+    "All form inputs use govuk-frontend components: text-input, select, checkboxes, buttons",
+    "All inputs have visible labels with correct htmlFor/id association",
+    "GOV.UK page structure: header with service name, phase banner (Beta), back link, main content, footer",
+    "Error display: inline errors under fields using govuk-frontend error pattern on save failure",
+    "Loading state: disable save button while saving",
+    "Full keyboard navigation through all controls"
+  ],
+  "techStack": {
+    "frontend": "React + TypeScript + Vite",
+    "styling": "govuk-frontend npm package",
+    "http": "fetch API for backend calls",
+    "testing": "Manual testing for hackathon"
+  },
+  "definitionOfDone": [
+    "All acceptance criteria above pass",
+    "Form editor can load extracted fields, edit them, and save back to API",
+    "GOV.UK styling visible on all pages",
+    "Keyboard navigation works through the full edit workflow",
+    "Code passes TypeScript strict mode with no errors",
+    "Evaluator must run and produce a passing evaluation-02.json before sprint is marked complete"
+  ],
+  "maxRetries": 5
+}

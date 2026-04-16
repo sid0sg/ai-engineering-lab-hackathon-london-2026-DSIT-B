@@ -1,0 +1,38 @@
+{
+  "sprint": "01",
+  "title": "PDF Upload & Extraction",
+  "features": ["F01", "F02"],
+  "description": "Stand up the backend Express API with TypeScript, in-memory data layer, PDF upload endpoint, and automated field extraction. By end of sprint a developer can POST a PDF and receive back a draft form schema JSON.",
+  "acceptanceCriteria": [
+    "Monorepo structured with /backend and /frontend packages and shared TypeScript config",
+    "Backend Express server runs on port 3000 with health-check GET /api/health returning 200 OK",
+    "POST /api/forms/upload accepts multipart/form-data with a PDF file",
+    "Uploaded PDF is stored in-memory with a unique UUID formId and createdAt timestamp",
+    "Extraction engine is triggered automatically after upload and returns a draft form schema",
+    "Draft schema conforms to: { formId, title, version, status: 'draft', fields: [{ id, label, type, required, order }] }",
+    "Supported field types extracted: text, textarea, date, number, radio, checkbox, select",
+    "POST /api/forms/upload responds with { formId, status: 'extraction-complete', draftSchemaId }",
+    "Unsupported file types (non-PDF) return 400 with a structured error JSON body",
+    "GET /api/forms returns a list of all uploaded forms with formId, title, status, createdAt",
+    "GET /api/forms/:formId returns the form with its current draft schema",
+    "All API routes return consistent JSON error shapes: { error: { code, message } }",
+    "Unit tests cover: file validation, extraction logic, schema shape validation",
+    "At least 1 sample test PDF included in /backend/test-fixtures/",
+    "README.md in /backend documents how to run the service locally"
+  ],
+  "techStack": {
+    "backend": "Node.js + TypeScript + Express",
+    "dataLayer": "In-memory store (Map) for MVP",
+    "pdfExtraction": "pdf-parse for text extraction; heuristic field detection",
+    "testing": "Jest unit tests"
+  },
+  "definitionOfDone": [
+    "All acceptance criteria above pass",
+    "A test PDF can be uploaded via curl/Postman and a valid draft form schema JSON returned",
+    "No known OWASP Top 10 vulnerabilities: file type validated server-side, filenames sanitised",
+    "README updated with local setup instructions and example curl commands",
+    "Code passes TypeScript strict mode with no errors",
+    "Evaluator must run and produce a passing evaluation-01.json before sprint is marked complete"
+  ],
+  "maxRetries": 5
+}

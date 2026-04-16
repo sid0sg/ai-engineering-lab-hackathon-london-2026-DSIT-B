@@ -1,0 +1,36 @@
+{
+  "sprint": "04",
+  "title": "Dynamic Form Renderer",
+  "features": ["F07"],
+  "description": "Build a renderer page/route that fetches a published form schema from the API and renders a single-page GOV.UK-styled form. Client-side required validation and a confirmation page on submit.",
+  "acceptanceCriteria": [
+    "Renderer route/page accessible via URL with formId parameter (e.g., /render/:formId)",
+    "On load, fetches published schema from GET /api/forms/:formId/schema",
+    "Renders each field using the correct govuk-frontend component based on field type: text→text-input, textarea→textarea, date→date-input, number→text-input (inputmode=numeric), radio→radios, checkbox→checkboxes, select→select",
+    "Form title from schema displayed as <h1> using GOV.UK heading pattern",
+    "All rendered fields have visible labels with correct htmlFor/id association",
+    "Fields marked as required show '(required)' hint and are validated on submit",
+    "On submit with missing required fields: GOV.UK error summary shown at top of page with links to each error field",
+    "Error summary links focus to the relevant field on activation (WCAG 2.4.3)",
+    "On successful submit: structured JSON payload logged/posted to a confirmation endpoint",
+    "Confirmation page shows GOV.UK panel component with reference number and 'Form submitted' message",
+    "Full keyboard journey from start to submission works without mouse",
+    "GOV.UK page structure: header, phase banner (Beta), main content, footer",
+    "If schema fetch fails (404 or network error), show GOV.UK error page with clear message"
+  ],
+  "techStack": {
+    "frontend": "React + Vite (same /frontend project, new route)",
+    "styling": "govuk-frontend npm package",
+    "validation": "Client-side required check only"
+  },
+  "definitionOfDone": [
+    "All acceptance criteria above pass",
+    "Upload a PDF, edit fields, publish, then open renderer route — see a working GOV.UK form",
+    "Fill in the form, submit, see confirmation panel",
+    "Skip a required field, submit, see GOV.UK error summary",
+    "Navigate the entire form using only keyboard",
+    "Code passes TypeScript strict mode with no errors",
+    "Evaluator must run and produce a passing evaluation-04.json before sprint is marked complete"
+  ],
+  "maxRetries": 5
+}

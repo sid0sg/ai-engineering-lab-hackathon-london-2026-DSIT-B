@@ -1,0 +1,11 @@
+{
+  "buildStatus": "in-progress",
+  "currentSprint": 1,
+  "sprints": [
+    { "sprint": "01", "feature": "F01-F02-pdf-upload-extraction", "status": "in-progress", "retries": 0, "maxRetries": 5 },
+    { "sprint": "02", "feature": "F03-builder-ui-field-editor", "status": "pending", "retries": 0, "maxRetries": 5 },
+    { "sprint": "03", "feature": "F04-F06-save-publish-serve", "status": "pending", "retries": 0, "maxRetries": 5 },
+    { "sprint": "04", "feature": "F07-dynamic-form-renderer", "status": "pending", "retries": 0, "maxRetries": 5 },
+    { "sprint": "05", "feature": "e2e-integration-demo-polish", "status": "pending", "retries": 0, "maxRetries": 5 }
+  ]
+}

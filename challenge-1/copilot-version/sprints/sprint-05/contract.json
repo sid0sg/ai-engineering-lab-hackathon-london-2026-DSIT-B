@@ -1,0 +1,32 @@
+{
+  "sprint": "05",
+  "title": "E2E Integration & Demo Polish",
+  "features": ["F01", "F02", "F03", "F04", "F06", "F07"],
+  "description": "Wire the full flow end-to-end with 1 curated PDF. Fix any styling issues, broken links, or API errors. Ensure the happy path works smoothly from upload to form submission. Basic accessibility check.",
+  "acceptanceCriteria": [
+    "Full demo flow works: Upload curated PDF → see extracted fields → edit a label and type → save → publish → open renderer → see GOV.UK form → fill in → submit → see confirmation",
+    "Curated test PDF included in /backend/test-fixtures/ and documented in README",
+    "No console errors or unhandled promise rejections during the demo flow",
+    "GOV.UK styling consistent across all pages: header, phase banner, footer, typography",
+    "All navigation links work: dashboard → editor → renderer → back",
+    "Error states handled gracefully: upload failure, save failure, publish failure, schema fetch failure",
+    "Basic accessibility check: all form inputs have visible labels, keyboard navigation through entire flow, focus visible on interactive elements",
+    "Page titles are descriptive on each route (WCAG 2.4.2)",
+    "Form editor and renderer use correct GOV.UK heading hierarchy (h1, h2)",
+    "README.md updated with complete setup instructions, demo walkthrough, and known limitations"
+  ],
+  "techStack": {
+    "backend": "Node.js + TypeScript + Express (all prior sprints)",
+    "frontend": "React + Vite (all prior sprints)",
+    "testing": "Manual end-to-end walkthrough"
+  },
+  "definitionOfDone": [
+    "Demo flow completed successfully 3 times without errors",
+    "No TypeScript errors in either backend or frontend",
+    "GOV.UK styling looks correct on all pages",
+    "Keyboard-only navigation works for the full demo flow",
+    "README documents the complete demo script",
+    "Evaluator must run and produce a passing evaluation-05.json before sprint is marked complete"
+  ],
+  "maxRetries": 5
+}

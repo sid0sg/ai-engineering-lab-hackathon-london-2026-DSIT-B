@@ -1,0 +1,33 @@
+{
+  "sprint": "03",
+  "title": "Save, Publish & Serve",
+  "features": ["F04", "F06"],
+  "description": "Add schema persistence with version numbering, a Publish button that marks the schema as active, and a GET API endpoint that serves the published schema to consuming applications.",
+  "acceptanceCriteria": [
+    "PUT /api/forms/:formId/fields persists the updated schema and increments the version number",
+    "Each save creates a new version entry in the in-memory store with version number and timestamp",
+    "POST /api/forms/:formId/publish marks the current version as 'published' and sets it as the active schema",
+    "Publish returns a success response with { formId, version, status: 'published', publishedAt }",
+    "GET /api/forms/:formId/schema returns the active published schema as JSON",
+    "GET /api/forms/:formId/schema returns 404 if no published version exists for the formId",
+    "Response includes metadata: formId, version, publishedAt, title",
+    "Publish button added to the form editor UI using govuk-frontend button component",
+    "After publishing, a GOV.UK success notification banner is shown",
+    "Form dashboard shows 'Published' status badge next to published forms",
+    "Backend unit tests cover: save with version increment, publish, serve published schema, 404 for missing"
+  ],
+  "techStack": {
+    "backend": "Node.js + TypeScript + Express (extends Sprint 01 API)",
+    "frontend": "React + Vite (extends Sprint 02 UI)",
+    "dataLayer": "In-memory store with version history array per form"
+  },
+  "definitionOfDone": [
+    "All acceptance criteria above pass",
+    "Can save edits, publish, and then GET /api/forms/:formId/schema returns the published schema",
+    "Version number increments correctly on each save",
+    "Published forms visible on dashboard with correct status",
+    "Code passes TypeScript strict mode with no errors",
+    "Evaluator must run and produce a passing evaluation-03.json before sprint is marked complete"
+  ],
+  "maxRetries": 5
+}

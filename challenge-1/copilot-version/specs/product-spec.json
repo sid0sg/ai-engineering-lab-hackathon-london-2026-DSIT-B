@@ -1,0 +1,177 @@
+{
+  "productOverview": {
+    "name": "Government PDF-to-Digital Form Builder",
+    "scope": "Hackathon MVP — 5 sprints, demo-ready end-to-end flow",
+    "elevatorPitch": "A reusable platform that ingests government PDF forms, extracts a draft field structure, allows back-office editors to review and correct it, and publishes a schema definition that a consuming application renders as an accessible digital form journey.",
+    "targetUsers": [
+      "Applicant: citizen completing a digital form journey",
+      "Form editor: reviews extracted draft, edits field labels, types, and required flags"
+    ],
+    "deferredUsers": [
+      "Reviewer / publisher (post-hackathon)",
+      "Consuming application team (post-hackathon)",
+      "Casework operations team (post-hackathon)"
+    ],
+    "govukCompliance": true,
+    "wcag2_2Target": "AA (baseline via govuk-frontend components)",
+    "mockAuth": "Hardcoded demo-editor user — no login screen"
+  },
+  "coreFeatures": [
+    {
+      "id": "F01",
+      "title": "PDF Upload & Ingestion",
+      "description": "Back-office users upload a PDF form. The ingestion service stores the file and triggers extraction.",
+      "acceptanceCriteria": [
+        "User can upload a PDF via a GOV.UK-styled file-upload component",
+        "Uploaded file is stored and associated with a unique form ID and timestamp",
+        "Unsupported file types produce a clear, inline error message",
+        "Upload page uses govuk-frontend components for baseline WCAG compliance"
+      ],
+      "a11yRequirements": [
+        "File upload uses govuk-frontend file-upload component with correct label association",
+        "Error messages use govuk-frontend error-summary and inline error patterns"
+      ]
+    },
+    {
+      "id": "F02",
+      "title": "Automated Field Extraction",
+      "description": "After upload, the extraction engine analyses the PDF and produces a draft form schema containing detected field labels and inferred types.",
+      "acceptanceCriteria": [
+        "Extraction runs automatically after successful upload",
+        "Draft schema produced containing: id, label, type, required, order per field",
+        "Supported field types: text, textarea, date, number, radio, checkbox, select",
+        "Extraction works reliably on at least 1 curated digitally generated test PDF"
+      ],
+      "a11yRequirements": [
+        "Status feedback uses govuk-frontend notification banner pattern"
+      ],
+      "cutFromOriginal": ["70% accuracy SLA", "60-second SLA", "Auditable error records", "Failure notification UX"]
+    },
+    {
+      "id": "F03",
+      "title": "Form Builder UI – Field Editor (Trimmed)",
+      "description": "An editor can view the extracted draft, correct field labels and types, toggle required, and add/remove fields.",
+      "acceptanceCriteria": [
+        "Editor can rename field labels and change field types (all 7 types selectable)",
+        "Editor can toggle the required flag per field",
+        "Editor can add new fields and delete existing fields",
+        "All form controls use govuk-frontend components with associated labels",
+        "Editor UI is keyboard-operable"
+      ],
+      "a11yRequirements": [
+        "All inputs have visible, programmatically associated labels (WCAG 1.3.1)",
+        "Focus management maintained when adding/removing fields"
+      ],
+      "cutFromOriginal": ["Drag-and-drop reorder", "Conditional show/hide logic authoring", "Validation rule config (regex, min/max)", "Unsaved-changes warning"]
+    },
+    {
+      "id": "F04",
+      "title": "Schema Save & Publish (Simplified)",
+      "description": "The editor can save the current schema and publish it, making it available to the renderer via the API.",
+      "acceptanceCriteria": [
+        "Save persists the schema to the in-memory store with a version number",
+        "Publish button marks the schema as published and sets it as the active version",
+        "Version number increments on each save",
+        "Schema is stored as canonical JSON conforming to the Form Schema specification"
+      ],
+      "a11yRequirements": [],
+      "cutFromOriginal": ["Full state machine (draft→review→published)", "Rollback", "Immutable versions", "Version list UI"]
+    },
+    {
+      "id": "F06",
+      "title": "Runtime API – Schema Serving (Simplified)",
+      "description": "A single REST endpoint serves the active published schema for a form.",
+      "acceptanceCriteria": [
+        "GET /api/forms/:formId/schema returns the active published schema as JSON",
+        "404 returned for unknown formId",
+        "Response includes metadata: formId, version, publishedAt"
+      ],
+      "a11yRequirements": [],
+      "cutFromOriginal": ["Version pinning query param", "OpenAPI 3.0 spec", "Caching", "<300ms SLA", "a11yHints field"]
+    },
+    {
+      "id": "F07",
+      "title": "Dynamic Form Renderer (Simplified)",
+      "description": "A reference page fetches a published form schema and renders a single-page GOV.UK-styled form with client-side required validation.",
+      "acceptanceCriteria": [
+        "Renderer fetches schema from Runtime API on load",
+        "Renders correct govuk-frontend field components for each field type",
+        "Client-side required validation shows GOV.UK error summary on submit",
+        "Submission produces a structured JSON payload",
+        "Completion page uses GOV.UK panel component with reference number",
+        "Full keyboard journey from start to submission works without mouse"
+      ],
+      "a11yRequirements": [
+        "All field components use govuk-frontend: input, textarea, radios, checkboxes, date-input, select",
+        "Error summary links focus to the relevant field on activation (WCAG 2.4.3)"
+      ],
+      "cutFromOriginal": ["Multi-page form journey", "Conditional logic evaluation", "Server-side validation", "NVDA/VoiceOver testing"]
+    }
+  ],
+  "removedFeatures": [
+    {
+      "id": "F05",
+      "title": "Review & Publish Workflow",
+      "reason": "Enterprise approval workflow — zero demo value. Publish button in editor replaces it."
+    },
+    {
+      "id": "F08",
+      "title": "Role-Based Access Control & Audit Trail",
+      "reason": "Auth, RBAC, audit log are enterprise concerns. Hardcoded mock user for hackathon."
+    }
+  ],
+  "uiDirection": {
+    "styleNotes": "All UI must use the GOV.UK Design System exclusively. No custom CSS frameworks. govuk-frontend components provide baseline WCAG 2.2 AA compliance.",
+    "govukDesignSystemPatterns": [
+      "File upload",
+      "Error summary",
+      "Summary list",
+      "Tables",
+      "Notification banner",
+      "Panel (confirmation)",
+      "Radios and checkboxes",
+      "Date input",
+      "Tags (for status)",
+      "Back link",
+      "Phase banner (Beta)"
+    ],
+    "wcagGuidance": "Baseline WCAG 2.2 AA via govuk-frontend components. Key criteria: 1.3.1, 1.4.3, 2.1.1, 2.4.2, 2.4.3, 2.4.6, 3.3.1, 3.3.2, 4.1.2."
+  },
+  "designTools": {
+    "designSystem": "https://design-system.service.gov.uk",
+    "frontendKit": "https://www.npmjs.com/package/govuk-frontend",
+    "wcagReference": "https://www.w3.org/WAI/WCAG22/quickref/"
+  },
+  "sprintBreakdown": [
+    {
+      "sprint": "01",
+      "features": ["F01", "F02"],
+      "title": "PDF Upload & Extraction",
+      "description": "Express backend setup, in-memory store, file upload endpoint, PDF text extraction (pdf-parse), produce draft schema JSON. GOV.UK styled upload page."
+    },
+    {
+      "sprint": "02",
+      "features": ["F03"],
+      "title": "Form Builder UI",
+      "description": "React + Vite frontend. Display extracted fields in a list. Edit label, type, required flag. Add/remove fields. All using govuk-frontend components."
+    },
+    {
+      "sprint": "03",
+      "features": ["F04", "F06"],
+      "title": "Save, Publish & Serve",
+      "description": "Persist edited schema to store. Publish button marks it active. GET /api/forms/:formId/schema serves published schema. Version number increments on save."
+    },
+    {
+      "sprint": "04",
+      "features": ["F07"],
+      "title": "Dynamic Form Renderer",
+      "description": "Separate page/route fetches published schema. Renders single-page GOV.UK form with correct field components. Client-side required validation. Submit shows confirmation panel."
+    },
+    {
+      "sprint": "05",
+      "features": ["F01", "F02", "F03", "F04", "F06", "F07"],
+      "title": "E2E Integration & Demo Polish",
+      "description": "Wire full flow with 1 curated PDF. Fix styling issues. Ensure happy path works smoothly end-to-end. Basic accessibility check (correct labels, keyboard nav, focus management)."
+    }
+  ]
+}
