@@ -1,0 +1,78 @@
+{
+  "generatedBy": "evaluator",
+  "sprint": "01",
+  "attempt": 1,
+  "acceptanceCriteria": {
+    "AC1": "PASS - /backend and /frontend exist; shared tsconfig.base.json present",
+    "AC2": "PASS - server starts on port 3000; GET /api/health returns 200 JSON",
+    "AC3": "PASS - POST /api/forms/upload accepts multipart/form-data with file field",
+    "AC4": "PASS - upload route generates uuid formId and ISO createdAt and stores in in-memory Map",
+    "AC5": "PASS - extraction runs in upload handler immediately after store create",
+    "AC6": "PASS - schema includes formId/title/version/status draft/fields with id,label,type,required,order",
+    "AC7": "PASS - extraction type inference and tests cover text, textarea, date, number, radio, checkbox, select",
+    "AC8": "PASS - successful upload returns { formId, status: extraction-complete, draftSchemaId }",
+    "AC9": "PASS - non-PDF upload returns 400 with structured error body",
+    "AC10": "FAIL - GET /api/forms does not include title; returns metadata like originalFileName/mimeType/fileSize instead",
+    "AC11": "FAIL - GET /api/forms/:formId returns form record only; does not embed current draft schema",
+    "AC12": "PASS - errors consistently include error.code and error.message across tested routes",
+    "AC13": "PASS - tests cover file validation, extraction logic, and schema shape (69 passing tests)",
+    "AC14": "PASS - backend/test-fixtures contains 3 sample PDFs",
+    "AC15": "PASS - backend README documents install, run, test, and curl usage"
+  },
+  "scores": {
+    "functionality": 5,
+    "designQuality": 8,
+    "craft": 6,
+    "originality": 6
+  },
+  "bugs": [
+    {
+      "title": "GET /api/forms response contract mismatch",
+      "severity": "high",
+      "acceptanceCriterion": "AC10",
+      "steps": "Call GET /api/forms after at least one upload",
+      "expected": "Each list item includes formId, title, status, createdAt",
+      "actual": "Response items omit title and include extra storage metadata (originalFileName, mimeType, fileSizeBytes)",
+      "evidence": "curl GET /api/forms returned forms without title"
+    },
+    {
+      "title": "GET /api/forms/:formId does not include draft schema",
+      "severity": "high",
+      "acceptanceCriterion": "AC11",
+      "steps": "Upload valid PDF then call GET /api/forms/:formId",
+      "expected": "Form response includes current draft schema",
+      "actual": "Endpoint returns form record fields only; schema is only available on /api/forms/:formId/schema",
+      "evidence": "routes/forms.ts implementation and runtime response"
+    },
+    {
+      "title": "Uploading one provided fixture can crash backend process",
+      "severity": "high",
+      "acceptanceCriterion": "DoD reliability",
+      "steps": "Start dev server and upload backend/test-fixtures/business-registration.pdf",
+      "expected": "Request handled safely with 201 or structured 4xx/5xx without process crash",
+      "actual": "UnhandledPromiseRejection FormatError: bad XRef entry observed in server process",
+      "evidence": "terminal output from backend dev server"
+    }
+  ],
+  "issues": [
+    "6 high severity npm audit vulnerabilities reported in backend dependencies",
+    "Extraction success is inconsistent across included fixture PDFs"
+  ],
+  "evidence": {
+    "typescript": "npm install && npx tsc --noEmit completed with zero compiler errors",
+    "tests": "npm test -- --runInBand => 5 suites, 69 tests passed",
+    "readiness": "frontend http://127.0.0.1:5173 returned 200; backend /api/health returned 200",
+    "uploadSuccess": "curl upload of housing-benefit-application.pdf and universal-credit-change.pdf returned 201 in test run",
+    "uploadError": "curl upload of non-PDF returned 400 INVALID_FILE_TYPE",
+    "notFound": "GET /api/forms/00000000-0000-4000-8000-000000000000 returned 404 FORM_NOT_FOUND",
+    "owasp": "Server-side MIME+extension+magic-byte validation and filename sanitisation implemented"
+  },
+  "recommendations": [
+    "Align GET /api/forms payload with contract: include title and only contract fields",
+    "Update GET /api/forms/:formId to include draft schema or adjust contract plus endpoint behavior consistently",
+    "Handle pdf-parse failures without unhandled promise rejection; add regression test for corrupted/bad-xref fixtures",
+    "Add runtime integration test using real fixture PDFs (not only mocked pdf-parse) to catch extraction reliability issues",
+    "Address high severity dependency vulnerabilities before next sprint hardening"
+  ],
+  "verdict": "FAIL"
+}

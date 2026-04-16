@@ -113,10 +113,20 @@ export async function extractFromPdf(
   formId: string,
   sourceFileName: string
 ): Promise<ExtractionResult> {
-  const data = await pdfParse(buffer);
+  let rawText: string;
+  let pageCount: number;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let pdfInfo: any;
+  try {
+    const data = await pdfParse(buffer);
+    rawText = data.text;
+    pageCount = data.numpages;
+    pdfInfo = data.info;
+  } catch (err) {
+    const message = err instanceof Error ? err.message : String(err);
+    throw new Error(`PDF parsing failed: ${message}`);
+  }
 
-  const rawText = data.text;
-  const pageCount = data.numpages;
   const lines = rawText.split('\n');
 
   const fields: FormField[] = [];
@@ -166,7 +176,7 @@ export async function extractFromPdf(
   }
 
   // Derive a human-readable title from the PDF metadata or first meaningful line
-  const title = deriveTitle(data.info, lines, sourceFileName);
+  const title = deriveTitle(pdfInfo, lines, sourceFileName);
 
   const now = new Date().toISOString();
   const schema: FormSchema = {

@@ -1,0 +1,45 @@
+{
+  "generatedBy": "evaluator",
+  "sprint": "01",
+  "attempt": 2,
+  "acceptanceCriteria": {
+    "AC1": "PASS - Monorepo contains backend and frontend packages and shared tsconfig.base.json at workspace root.",
+    "AC2": "PASS - Health endpoint verified with 200 OK at /api/health; backend defaults to port 3000 in src/index.ts when PORT is unset.",
+    "AC3": "PASS - POST /api/forms/upload accepts multipart/form-data file field; valid PDF fixture upload returns HTTP 201.",
+    "AC4": "PASS - Uploaded forms persisted in-memory with UUID formId and ISO createdAt; verified in GET /api/forms response.",
+    "AC5": "PASS - Extraction runs automatically after upload; forms transition to extraction-complete or extraction-failed without manual trigger.",
+    "AC6": "PASS - Draft schema shape confirmed on successful extraction includes formId, title, version, status=draft, and fields with id,label,type,required,order.",
+    "AC7": "PASS - Supported field types verified via runtime schema and tests: text, textarea, date, number, radio, checkbox, select.",
+    "AC8": "PASS - Successful upload response matches contract: { formId, status: extraction-complete, draftSchemaId }.",
+    "AC9": "PASS - Non-PDF upload returns HTTP 400 with structured JSON error code INVALID_FILE_TYPE.",
+    "AC10": "PASS - GET /api/forms now returns form items containing formId, title, status, createdAt.",
+    "AC11": "PASS - GET /api/forms/:formId includes current schema in response as schema object when extraction succeeded.",
+    "AC12": "PASS - Error responses consistently use shape { error: { code, message } } with structured payloads observed for INVALID_FILE_TYPE, EXTRACTION_FAILED, and SCHEMA_NOT_FOUND.",
+    "AC13": "PASS - Unit tests cover file validation, extraction logic, and schema shape; npm test -- --runInBand: 5 suites, 69 tests passed.",
+    "AC14": "PASS - Sample PDFs present in backend/test-fixtures including business-registration.pdf, housing-benefit-application.pdf, and universal-credit-change.pdf.",
+    "AC15": "PASS - backend README documents setup, run commands, tests, and example curl API usage."
+  },
+  "scores": {
+    "functionality": 7,
+    "designQuality": 6,
+    "craft": 7,
+    "originality": 6
+  },
+  "bugs": [
+    {
+      "title": "Extraction reliability varies across provided sample fixtures",
+      "severity": "medium",
+      "acceptanceCriterion": "DoD reliability",
+      "steps": "Upload housing-benefit-application.pdf and business-registration.pdf to POST /api/forms/upload",
+      "expected": "Higher extraction success rate across bundled fixtures",
+      "actual": "Both fixtures currently return structured 422 EXTRACTION_FAILED while universal-credit-change.pdf succeeds",
+      "evidence": "Runtime curl checks during attempt 2"
+    }
+  ],
+  "recommendations": [
+    "Add regression tests using real fixture binaries for all bundled PDFs to improve extraction reliability confidence.",
+    "Harden extraction fallbacks for malformed PDFs while preserving structured error behavior and process stability.",
+    "Keep monitoring /api/forms/:formId schema embedding behavior with integration tests to prevent AC11 regressions."
+  ],
+  "verdict": "PASS"
+}

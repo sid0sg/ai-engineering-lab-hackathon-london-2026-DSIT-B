@@ -1,0 +1,107 @@
+{
+  "buildId": "GOV-PDFTODIGI-MVP-001",
+  "buildName": "Government PDF-to-Digital Form Builder – Hackathon MVP – 5-Sprint Build",
+  "startDate": "2026-04-16T00:00:00Z",
+  "buildStatus": "PENDING_EXECUTION",
+  "currentSprint": 1,
+  "executionChain": [
+    {
+      "phase": "Sprint Execution",
+      "actor": "Generator",
+      "trigger": "Read sprint-NN/contract.json and specs/product-spec.json",
+      "action": "Implement all acceptance criteria; create implementation-status.json"
+    },
+    {
+      "phase": "Sprint Evaluation",
+      "actor": "Evaluator",
+      "trigger": "Implementation-status.json ready",
+      "action": "Validate acceptance criteria; create evaluation-NN.json with PASS/FAIL"
+    },
+    {
+      "phase": "Status Update",
+      "actor": "Planner",
+      "trigger": "Evaluation PASS received",
+      "action": "Update sprints/status.json; hand off to Generator for next sprint"
+    }
+  ],
+  "sprintSequence": [
+    {
+      "sprint": "01",
+      "feature": "F01-F02-pdf-upload-extraction",
+      "title": "PDF Upload & Extraction",
+      "status": "READY_FOR_GENERATION",
+      "contractReady": true,
+      "generatorOutput": null,
+      "evaluatorOutput": null,
+      "completedAt": null,
+      "blockersEncountered": []
+    },
+    {
+      "sprint": "02",
+      "feature": "F03-builder-ui-field-editor",
+      "title": "Form Builder UI",
+      "status": "PENDING",
+      "contractReady": true,
+      "generatorOutput": null,
+      "evaluatorOutput": null,
+      "completedAt": null,
+      "blockersEncountered": []
+    },
+    {
+      "sprint": "03",
+      "feature": "F04-F06-save-publish-serve",
+      "title": "Save, Publish & Serve",
+      "status": "PENDING",
+      "contractReady": true,
+      "generatorOutput": null,
+      "evaluatorOutput": null,
+      "completedAt": null,
+      "blockersEncountered": []
+    },
+    {
+      "sprint": "04",
+      "feature": "F07-dynamic-form-renderer",
+      "title": "Dynamic Form Renderer",
+      "status": "PENDING",
+      "contractReady": true,
+      "generatorOutput": null,
+      "evaluatorOutput": null,
+      "completedAt": null,
+      "blockersEncountered": []
+    },
+    {
+      "sprint": "05",
+      "feature": "e2e-integration-demo-polish",
+      "title": "E2E Integration & Demo Polish",
+      "status": "PENDING",
+      "contractReady": true,
+      "generatorOutput": null,
+      "evaluatorOutput": null,
+      "completedAt": null,
+      "blockersEncountered": []
+    }
+  ],
+  "buildMetrics": {
+    "totalSprintsPlanned": 5,
+    "totalSprintsCompleted": 0,
+    "totalSprintsFailed": 0,
+    "totalBackendLoc": null,
+    "totalFrontendLoc": null,
+    "totalProjectLoc": null,
+    "wcag2_2ComplianceLevel": "AA (baseline via govuk-frontend)",
+    "govukDesignSystemCompliance": "100% (target)"
+  },
+  "deploymentReadiness": {
+    "backendReady": false,
+    "frontendReady": false,
+    "allServicesIntegrated": false,
+    "allAcceptanceCriteriaMet": false,
+    "demoReady": false
+  },
+  "scopeReduction": {
+    "removedFeatures": ["F05 (Review & Publish Workflow)", "F08 (Auth/RBAC/Audit Trail)"],
+    "trimmedFeatures": ["F03 (no drag-drop, no conditional logic, no validation rules)", "F04 (no state machine, no rollback)", "F06 (single GET endpoint)", "F07 (single-page form, no conditional logic)"],
+    "mockAuth": "Hardcoded demo-editor user — no login screen"
+  },
+  "notes": "Reduced from 8 sprints to 5 for hackathon. Core flow preserved: Upload PDF → Extract → Edit → Publish → Render. All sprint contracts updated."
+}
