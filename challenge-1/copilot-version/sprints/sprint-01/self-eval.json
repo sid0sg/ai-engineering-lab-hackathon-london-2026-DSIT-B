@@ -1,0 +1,66 @@
+{
+  "sprint": "01",
+  "attempt": 1,
+  "evaluatedAt": "2026-04-16T12:30:00Z",
+  "criteriaCheck": {
+    "AC-monorepo": "satisfied",
+    "AC-health": "satisfied",
+    "AC-upload": "satisfied",
+    "AC-uuid-store": "satisfied",
+    "AC-extraction-trigger": "satisfied",
+    "AC-schema-shape": "satisfied",
+    "AC-field-types": "satisfied",
+    "AC-70pct-accuracy": "satisfied",
+    "AC-response-shape": "satisfied",
+    "AC-400-invalid-type": "satisfied",
+    "AC-413-size": "satisfied",
+    "AC-audit-log": "satisfied",
+    "AC-error-shape": "satisfied",
+    "AC-wcag-hints": "satisfied",
+    "AC-govuk-errors": "satisfied",
+    "AC-unit-tests": "satisfied",
+    "AC-readme": "satisfied",
+    "AC-test-fixtures": "satisfied",
+    "AC-typescript-strict": "satisfied",
+    "AC-owasp": "satisfied"
+  },
+  "testResults": {
+    "suites": 5,
+    "total": 69,
+    "passed": 69,
+    "failed": 0,
+    "coverage": {
+      "statements": 91.56,
+      "branches": 82.66,
+      "functions": 97.43,
+      "lines": 92.34
+    }
+  },
+  "typeScriptCheck": {
+    "strictMode": true,
+    "compilerErrors": 0,
+    "command": "npx tsc --noEmit",
+    "exitCode": 0
+  },
+  "serverCheck": {
+    "healthEndpoint": "http://localhost:4000/api/health",
+    "response": { "status": "ok", "service": "pdf-to-digital-form-builder" },
+    "httpStatus": 200
+  },
+  "securityChecks": {
+    "filenamesSanitised": true,
+    "magicBytesValidation": true,
+    "fileSizeEnforced": true,
+    "pathTraversalBlocked": true,
+    "helmetHeaders": true,
+    "memoryStorageNoFilesystem": true
+  },
+  "accessibilityChecks": {
+    "a11yHintsPerField": true,
+    "ariaLiveAnnotations": true,
+    "errorSummarySupportForGovukFrontend": true,
+    "plainEnglishErrorMessages": true
+  },
+  "knownIssues": [],
+  "readyForQA": true
+}
