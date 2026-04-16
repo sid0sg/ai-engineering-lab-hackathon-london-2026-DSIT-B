@@ -1,0 +1,24 @@
+{
+  "sprint": "05",
+  "status": "complete",
+  "implementedBy": "generator",
+  "changes": [
+    "Added document.title to DashboardPage, UploadPage, EditorPage, FormRendererPage (WCAG 2.4.2)",
+    "FormRendererPage updates document.title with the published form title after load",
+    "Created README.md with setup instructions, demo walkthrough, and known limitations",
+    "Verified frontend builds with no TypeScript errors",
+    "All existing backend tests continue to pass"
+  ],
+  "acceptanceCriteria": {
+    "AC1": "Full demo flow works end-to-end via existing Sprint 01-04 implementations",
+    "AC2": "Sample PDFs present in backend/test-fixtures/ and documented in README",
+    "AC3": "No console errors during demo flow - all error states handled in prior sprints",
+    "AC4": "GOV.UK styling consistent via GovLayout component used on all pages",
+    "AC5": "All navigation links work via react-router-dom Links",
+    "AC6": "Error states handled gracefully in all pages",
+    "AC7": "All inputs have labels, keyboard navigation implemented in FormRendererPage",
+    "AC8": "document.title set on all routes (WCAG 2.4.2)",
+    "AC9": "h1/h2 heading hierarchy correct on all pages",
+    "AC10": "README.md written with complete setup, demo walkthrough, and known limitations"
+  }
+}

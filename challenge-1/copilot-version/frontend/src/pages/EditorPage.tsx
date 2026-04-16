@@ -145,6 +145,7 @@ export default function EditorPage(): React.JSX.Element {
 
   useEffect(() => {
     if (!formId) return;
+    document.title = 'Edit Form – GOV.UK Form Builder';
     getForm(formId)
       .then((record) => {
         setFormRecord(record);

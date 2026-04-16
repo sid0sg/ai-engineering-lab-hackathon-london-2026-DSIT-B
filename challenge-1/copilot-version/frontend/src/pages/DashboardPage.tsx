@@ -28,6 +28,7 @@ export default function DashboardPage(): React.JSX.Element {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    document.title = 'Form Builder Dashboard – GOV.UK Form Builder';
     listForms()
       .then(setForms)
       .catch((err: unknown) => setError((err as Error).message))

@@ -590,9 +590,12 @@ export default function FormRendererPage(): React.JSX.Element {
       return;
     }
 
+    document.title = 'Complete Form – GOV.UK Form Builder';
+
     getFormSchema(formId)
       .then((s) => {
         setSchema(s);
+        document.title = `${s.title} – GOV.UK Form Builder`;
         const sorted = [...s.fields].sort((a, b) => a.order - b.order);
         setValues(buildInitialValues(sorted));
       })

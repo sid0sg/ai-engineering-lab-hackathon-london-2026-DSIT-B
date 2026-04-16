@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import GovLayout from '../components/GovLayout';
 import { uploadPdf } from '../api';
@@ -10,6 +10,10 @@ export default function UploadPage(): React.JSX.Element {
   const [globalError, setGlobalError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    document.title = 'Upload PDF Form – GOV.UK Form Builder';
+  }, []);
 
   function handleFileChange(e: React.ChangeEvent<HTMLInputElement>): void {
     setFileError(null);
