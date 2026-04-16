@@ -1,0 +1,43 @@
+{
+  "generatedBy": "evaluator",
+  "sprint": "04",
+  "attempt": 1,
+  "acceptanceCriteria": {
+    "AC1": "PASS - /render/:formId route is implemented and reachable.",
+    "AC2": "PASS - Renderer requests GET /api/forms/:formId/schema and loads published schema.",
+    "AC3": "PASS - Field type mapping matches contract (text, textarea, date, number+inputmode=numeric, radio, checkbox, select).",
+    "AC4": "PASS - Form title is rendered as GOV.UK-styled <h1>.",
+    "AC5": "PASS - Rendered controls have visible labels and label/control associations (htmlFor/id or grouped fieldset/legend).",
+    "AC6": "PASS - Required fields show '(required)' hint and client-side required validation is applied.",
+    "AC7": "PASS - Missing required fields show GOV.UK error summary with links plus inline field errors.",
+    "AC8": "FAIL - Error summary links do not move focus for radio/checkbox errors; focus remains on the clicked summary link.",
+    "AC9": "PASS - Successful submit posts JSON to /api/forms/:formId/submit (verified via network/audit log).",
+    "AC10": "PASS - Confirmation view uses GOV.UK confirmation panel with reference number and 'Form submitted'.",
+    "AC11": "PASS - Keyboard interaction works across native form controls and submit flow; no keyboard trap observed.",
+    "AC12": "PASS - GOV.UK page structure present: header, Beta phase banner, main content, footer.",
+    "AC13": "PASS - 404 schema fetch shows GOV.UK-styled error state with clear message."
+  },
+  "scores": {
+    "functionality": 4,
+    "designQuality": 7,
+    "craft": 5,
+    "originality": 4
+  },
+  "bugs": [
+    {
+      "title": "Error summary focus fails for grouped fields (radio/checkbox)",
+      "steps": "Open /render/<publishedFormId>, submit empty form to trigger validation, click 'Enter preferred contact' or 'Select at least one option for \"Topics of interest\"' in error summary.",
+      "expected": "Focus should move to the relevant interactive field/group per WCAG 2.4.3.",
+      "actual": "Focus stays on the clicked error-summary link; grouped field is not focused.",
+      "severity": "high"
+    },
+    {
+      "title": "Backend automated test suite fails in environment",
+      "steps": "Run npm test in challenge-1/copilot-version.",
+      "expected": "All backend tests execute and pass.",
+      "actual": "Jest run fails with missing module error: cannot find caniuse-lite/dist/unpacker/agents.",
+      "severity": "medium"
+    }
+  ],
+  "verdict": "FAIL"
+}

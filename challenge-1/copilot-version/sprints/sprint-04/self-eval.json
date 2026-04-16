@@ -1,6 +1,6 @@
 {
   "sprint": "04",
-  "attempt": 1,
+  "attempt": 2,
   "criteriaCheck": {
     "AC1": "satisfied",
     "AC2": "satisfied",
@@ -9,7 +9,7 @@
     "AC5": "satisfied",
     "AC6": "satisfied",
     "AC7": "satisfied",
-    "AC8": "satisfied",
+    "AC8": "satisfied - FIXED: new focusFieldInput() helper correctly focuses first input[name=fieldId] for radio/checkbox, day sub-input for date, and direct getElementById for all other types",
     "AC9": "satisfied",
     "AC10": "satisfied",
     "AC11": "satisfied",

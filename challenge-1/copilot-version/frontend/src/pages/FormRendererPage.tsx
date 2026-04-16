@@ -464,6 +464,34 @@ function getFieldErrorAnchor(field: FormField): string {
   return `#field-${field.id}`;
 }
 
+/**
+ * Programmatically focuses the correct interactive element for a field.
+ * - radio/checkbox: focuses the first <input> within the group (by name attribute)
+ * - date: focuses the day sub-input
+ * - all others: focuses the input by id
+ * This ensures WCAG 2.4.3 Focus Order compliance when clicking error summary links.
+ */
+function focusFieldInput(field: FormField): void {
+  const fieldId = `field-${field.id}`;
+  let target: HTMLElement | null = null;
+
+  if (field.type === 'radio' || field.type === 'checkbox') {
+    // First <input> within the named group — fieldset itself is not focusable
+    target = document.querySelector<HTMLElement>(`input[name="${fieldId}"]`);
+  } else if (field.type === 'date') {
+    // Day sub-input is the first part of the date group
+    target = document.getElementById(`${fieldId}-day`);
+  } else {
+    // Direct input/textarea/select by id
+    target = document.getElementById(fieldId);
+  }
+
+  if (target) {
+    target.focus();
+    target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+}
+
 // ── Validation ─────────────────────────────────────────────────────────────────
 
 function validateFields(
@@ -720,11 +748,7 @@ export default function FormRendererPage(): React.JSX.Element {
                           href={getFieldErrorAnchor(f)}
                           onClick={(e) => {
                             e.preventDefault();
-                            const target = document.querySelector<HTMLElement>(getFieldErrorAnchor(f));
-                            if (target) {
-                              target.focus();
-                              target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                            }
+                            focusFieldInput(f);
                           }}
                         >
                           {errors[f.id]}
