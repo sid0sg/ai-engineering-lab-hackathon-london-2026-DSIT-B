@@ -1,8 +1,8 @@
 {
   "feature": "F04-F06-save-publish-serve",
   "sprint": "03",
-  "attempt": 1,
-  "lastUpdatedAt": "2025-01-01T00:00:00.000Z",
+  "attempt": 2,
+  "lastUpdatedAt": "2025-04-16T22:27:00.000Z",
   "criteria": {
     "AC1": { "status": "verified", "description": "PUT /api/forms/:formId/fields persists the updated schema and increments the version number", "notes": "Existing behavior retained; version increments on each PUT /fields call. Tests confirm version goes 1→2→3." },
     "AC2": { "status": "verified", "description": "Each save creates a new version entry in the in-memory store with version number and timestamp", "notes": "versionHistory array added to FormRecord; each PUT /fields appends a VersionEntry with {version, savedAt, fieldCount, isPublished}." },
@@ -14,6 +14,8 @@
     "AC8": { "status": "verified", "description": "Publish button added to the form editor UI using govuk-frontend button component", "notes": "Added govuk-button govuk-button--secondary 'Publish form' button to EditorPage.tsx with id='publish-button'." },
     "AC9": { "status": "verified", "description": "After publishing, a GOV.UK success notification banner is shown", "notes": "govuk-notification-banner govuk-notification-banner--success shown after successful publish with version number message." },
     "AC10": { "status": "verified", "description": "Form dashboard shows 'Published' status badge next to published forms", "notes": "DashboardPage statusTag() updated to include 'published' → govuk-tag--blue with 'Published' label." },
-    "AC11": { "status": "verified", "description": "Backend unit tests cover: save with version increment, publish, serve published schema, 404 for missing", "notes": "publish.test.ts has 25+ tests covering all four scenarios. All 90 tests pass. Coverage: branches 80.2% >= 80%." }
+    "AC11": { "status": "verified", "description": "Backend unit tests cover: save with version increment, publish, serve published schema, 404 for missing", "notes": "publish.test.ts has 25+ tests covering all four scenarios. All 90 tests pass. Coverage: branches 80.2% >= 80%." },
+    "BUG1": { "status": "verified", "description": "Frontend build clean - no asset resolution warnings", "notes": "Copied GOV.UK Frontend fonts and images to frontend/public/assets/. Build now completes with zero warnings. Fonts served at /assets/fonts/*, images at /assets/images/*." },
+    "BUG2": { "status": "verified", "description": "Runtime font decode errors resolved", "notes": "Actual .woff and .woff2 font files now present at expected absolute path /assets/fonts/ so browser can decode them correctly. No more OTS parsing errors." }
   }
 }

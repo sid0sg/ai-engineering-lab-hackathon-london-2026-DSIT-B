@@ -1,7 +1,8 @@
 {
   "sprint": "03",
-  "attempt": 1,
+  "attempt": 2,
   "generatedBy": "generator",
+  "retryReason": "Fixed bugs from evaluation-01.json: copied GOV.UK Frontend font/image assets to frontend/public/assets/ so Vite can resolve them at /assets/fonts/* and /assets/images/*. Frontend build now completes with zero warnings.",
   "criteriaCheck": {
     "AC1": "satisfied",
     "AC2": "satisfied",
@@ -25,7 +26,7 @@
     "coverageStatements": "90.59%"
   },
   "buildResults": {
-    "frontend": "SUCCESS - TypeScript compiles clean, Vite build complete",
+    "frontend": "SUCCESS - TypeScript compiles clean, Vite build complete with ZERO warnings (fonts and images now at public/assets/)",
     "backend": "SUCCESS - ts-jest compiles all files"
   },
   "accessibilityChecks": {
@@ -44,7 +45,8 @@
   "knownIssues": [
     "The GET /api/forms/:formId/schema endpoint behavior changed from Sprint 01 (draft → published-only). The api.test.ts tests have been updated to reflect the new behavior - upload+publish then check schema.",
     "Lines 195-196, 224-225, 230-231, 284-285, 290-291 in forms.ts represent defensive null-check branches that are not reachable in normal test flow (store inconsistency scenarios). These do not affect the 80% threshold.",
-    "The stores.ts line 39 (findLatestByFormId returns filtered array[0]) is covered by publish.test.ts tests."
+    "The stores.ts line 39 (findLatestByFormId returns filtered array[0]) is covered by publish.test.ts tests.",
+    "[FIXED] GOV.UK Frontend fonts/images now copied to frontend/public/assets/ so they are served at the expected absolute paths /assets/fonts/* and /assets/images/* — resolves build warnings and runtime font decode errors."
   ],
   "readyForQA": true
 }
