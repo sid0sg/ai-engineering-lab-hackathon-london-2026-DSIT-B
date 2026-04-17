@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 import GovLayout from '../components/GovLayout';
-import { getForm, saveFields } from '../api';
+import { getForm, saveFields, publishForm } from '../api';
 import type { FieldType, FormField, FormRecord } from '../types';
 
 const FIELD_TYPES: { value: FieldType; label: string }[] = [
@@ -131,9 +131,13 @@ export default function EditorPage(): React.JSX.Element {
   const [fields, setFields] = useState<FormField[]>([]);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
+  const [publishing, setPublishing] = useState(false);
   const [loadError, setLoadError] = useState<string | null>(null);
   const [saveError, setSaveError] = useState<string | null>(null);
   const [saveSuccess, setSaveSuccess] = useState(false);
+  const [publishSuccess, setPublishSuccess] = useState(false);
+  const [publishError, setPublishError] = useState<string | null>(null);
+  const [publishedVersion, setPublishedVersion] = useState<number | null>(null);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
 
   const addButtonRef = useRef<HTMLButtonElement>(null);
@@ -141,6 +145,7 @@ export default function EditorPage(): React.JSX.Element {
 
   useEffect(() => {
     if (!formId) return;
+    document.title = 'Edit Form – GOV.UK Form Builder';
     getForm(formId)
       .then((record) => {
         setFormRecord(record);
@@ -208,6 +213,7 @@ export default function EditorPage(): React.JSX.Element {
   async function handleSave(): Promise<void> {
     setSaveSuccess(false);
     setSaveError(null);
+    setPublishSuccess(false);
     if (!validate()) return;
     if (!formId) return;
     setSaving(true);
@@ -220,6 +226,31 @@ export default function EditorPage(): React.JSX.Element {
       setTimeout(() => errorSummaryRef.current?.focus(), 50);
     } finally {
       setSaving(false);
+    }
+  }
+
+  async function handlePublish(): Promise<void> {
+    setPublishSuccess(false);
+    setPublishError(null);
+    setSaveSuccess(false);
+    if (!validate()) return;
+    if (!formId) return;
+    setPublishing(true);
+    try {
+      // Save the latest fields first, then publish
+      const ordered = fields.map((f, i) => ({ ...f, order: i }));
+      await saveFields(formId, ordered);
+      const result = await publishForm(formId);
+      setPublishedVersion(result.version);
+      setPublishSuccess(true);
+      // Refresh form record to show updated status
+      const updated = await getForm(formId);
+      setFormRecord(updated);
+    } catch (err: unknown) {
+      setPublishError((err as Error).message);
+      setTimeout(() => errorSummaryRef.current?.focus(), 50);
+    } finally {
+      setPublishing(false);
     }
   }
 
@@ -274,7 +305,7 @@ export default function EditorPage(): React.JSX.Element {
           </dl>
 
           {/* Error summary */}
-          {(hasFieldErrors || saveError) && (
+          {(hasFieldErrors || saveError || publishError) && (
             <div
               className="govuk-error-summary"
               data-module="govuk-error-summary"
@@ -293,6 +324,11 @@ export default function EditorPage(): React.JSX.Element {
                       <a href="#save-button">{saveError}</a>
                     </li>
                   )}
+                  {publishError && (
+                    <li>
+                      <a href="#publish-button">{publishError}</a>
+                    </li>
+                  )}
                   {Object.entries(fieldErrors).map(([id, msg]) => (
                     <li key={id}>
                       <a href={`#field-label-${id}`}>{msg}</a>
@@ -303,7 +339,7 @@ export default function EditorPage(): React.JSX.Element {
             </div>
           )}
 
-          {/* Success notification */}
+          {/* Save success notification */}
           {saveSuccess && (
             <div
               className="govuk-notification-banner govuk-notification-banner--success"
@@ -321,6 +357,34 @@ export default function EditorPage(): React.JSX.Element {
               </div>
               <div className="govuk-notification-banner__content">
                 <p className="govuk-body">Form fields saved successfully.</p>
+              </div>
+            </div>
+          )}
+
+          {/* Publish success notification */}
+          {publishSuccess && (
+            <div
+              className="govuk-notification-banner govuk-notification-banner--success"
+              role="alert"
+              aria-labelledby="govuk-publish-banner-title"
+              data-module="govuk-notification-banner"
+            >
+              <div className="govuk-notification-banner__header">
+                <h2
+                  className="govuk-notification-banner__title"
+                  id="govuk-publish-banner-title"
+                >
+                  Success
+                </h2>
+              </div>
+              <div className="govuk-notification-banner__content">
+                <h3 className="govuk-notification-banner__heading">
+                  Form published successfully
+                </h3>
+                <p className="govuk-body">
+                  Version {publishedVersion} of this form is now live.
+                  External services can access it via the published schema endpoint.
+                </p>
               </div>
             </div>
           )}
@@ -355,18 +419,31 @@ export default function EditorPage(): React.JSX.Element {
             Add field
           </button>
 
-          {/* Save button */}
+          {/* Save and Publish buttons */}
           <div style={{ marginTop: '1.5rem' }}>
             <button
               id="save-button"
               type="button"
               className="govuk-button"
               data-module="govuk-button"
-              disabled={saving}
-              aria-disabled={saving}
+              disabled={saving || publishing}
+              aria-disabled={saving || publishing}
               onClick={() => { void handleSave(); }}
             >
               {saving ? 'Saving…' : 'Save fields'}
+            </button>
+
+            <button
+              id="publish-button"
+              type="button"
+              className="govuk-button govuk-button--secondary"
+              data-module="govuk-button"
+              style={{ marginLeft: '1rem' }}
+              disabled={saving || publishing}
+              aria-disabled={saving || publishing}
+              onClick={() => { void handlePublish(); }}
+            >
+              {publishing ? 'Publishing…' : 'Publish form'}
             </button>
 
             <button

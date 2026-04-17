@@ -9,11 +9,13 @@ function statusTag(status: string): React.JSX.Element {
     'extraction-complete': 'govuk-tag--green',
     'pending': 'govuk-tag--yellow',
     'extraction-failed': 'govuk-tag--red',
+    'published': 'govuk-tag--blue',
   };
   const labelMap: Record<string, string> = {
     'extraction-complete': 'Ready',
     'pending': 'Processing',
     'extraction-failed': 'Failed',
+    'published': 'Published',
   };
   const cls = classMap[status] ?? '';
   const label = labelMap[status] ?? status;
@@ -26,6 +28,7 @@ export default function DashboardPage(): React.JSX.Element {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    document.title = 'Form Builder Dashboard – GOV.UK Form Builder';
     listForms()
       .then(setForms)
       .catch((err: unknown) => setError((err as Error).message))
@@ -119,10 +122,20 @@ export default function DashboardPage(): React.JSX.Element {
                       })}
                     </td>
                     <td className="govuk-table__cell">
-                      {form.status === 'extraction-complete' ? (
-                        <Link to={`/forms/${form.formId}/edit`} className="govuk-link">
-                          Edit
-                        </Link>
+                      {(form.status === 'extraction-complete' || form.status === 'published') ? (
+                        <>
+                          <Link to={`/forms/${form.formId}/edit`} className="govuk-link">
+                            Edit
+                          </Link>
+                          {form.status === 'published' && (
+                            <>
+                              {' '}
+                              <Link to={`/render/${form.formId}`} className="govuk-link">
+                                View form
+                              </Link>
+                            </>
+                          )}
+                        </>
                       ) : (
                         <span className="govuk-body govuk-!-colour-secondary">—</span>
                       )}

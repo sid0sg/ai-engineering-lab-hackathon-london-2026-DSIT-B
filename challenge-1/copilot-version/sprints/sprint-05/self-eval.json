@@ -1,0 +1,23 @@
+{
+  "generatedBy": "self-eval",
+  "sprint": "05",
+  "acceptanceCriteria": {
+    "AC1": "PASS - Full demo flow works: Upload → Extract → Edit → Save → Publish → Render → Submit → Confirmation",
+    "AC2": "PASS - Sample PDFs in backend/test-fixtures/ (business-registration.pdf, housing-benefit-application.pdf, universal-credit-change.pdf); documented in README",
+    "AC3": "PASS - Error states handled gracefully across all pages; no unhandled promise rejections",
+    "AC4": "PASS - GovLayout wraps all pages providing consistent header, phase banner, footer, and typography",
+    "AC5": "PASS - Navigation links present: Dashboard → Upload, Dashboard → Editor, Editor → Renderer, all pages have back links",
+    "AC6": "PASS - Upload failure, save failure, publish failure, schema fetch failure all show GOV.UK error messages",
+    "AC7": "PASS - All inputs have associated labels; keyboard navigation verified in FormRendererPage; focus management on error summary",
+    "AC8": "PASS - document.title set on all routes: Dashboard, Upload, Editor, FormRenderer (dynamic with form title)",
+    "AC9": "PASS - h1 for page title, h2 for section headings on all pages",
+    "AC10": "PASS - README.md created with prerequisites, installation, demo walkthrough, project structure, known limitations"
+  },
+  "scores": {
+    "functionality": 8,
+    "designQuality": 7,
+    "craft": 8,
+    "originality": 7
+  },
+  "verdict": "PASS"
+}

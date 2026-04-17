@@ -1,0 +1,41 @@
+{
+  "generatedBy": "evaluator",
+  "sprint": "03",
+  "attempt": 1,
+  "acceptanceCriteria": {
+    "AC1": "PASS - PUT /api/forms/:formId/fields persisted edits and incremented version from 1 -> 2 -> 3 across two saves",
+    "AC2": "PASS - Form record versionHistory appended entries per save with version, savedAt timestamp, fieldCount, isPublished",
+    "AC3": "PASS - POST /api/forms/:formId/publish set form status to published, set publishedSchemaId, and marked current version as published in history",
+    "AC4": "PASS - Publish response included { formId, version, status: 'published', publishedAt }",
+    "AC5": "PASS - GET /api/forms/:formId/schema returned published schema JSON after publish",
+    "AC6": "PASS - GET /api/forms/:formId/schema returned 404 before publish",
+    "AC7": "PASS - Published schema response contained metadata formId, version, publishedAt, and title",
+    "AC8": "PASS - Editor page includes Publish form button with GOV.UK classes 'govuk-button govuk-button--secondary' (id='publish-button')",
+    "AC9": "PASS - Publishing via UI shows GOV.UK success notification banner with role='alert' and publish confirmation message",
+    "AC10": "PASS - Dashboard shows Published status badge for published forms using GOV.UK tag class 'govuk-tag govuk-tag--blue'",
+    "AC11": "PASS - Backend tests cover save/publish/serve/404 scenarios; full suite passed 90/90 with publish.test and api.test included"
+  },
+  "scores": {
+    "functionality": 7,
+    "designQuality": 5,
+    "craft": 5,
+    "originality": 4
+  },
+  "bugs": [
+    {
+      "title": "Frontend build is not clean (asset resolution warnings)",
+      "steps": "Run `cd challenge-1/copilot-version/frontend && npm run build`.",
+      "expected": "Build completes without warnings.",
+      "actual": "Vite build emits unresolved asset warnings for GOV.UK fonts and crest SVG (will remain unresolved at runtime).",
+      "severity": "medium"
+    },
+    {
+      "title": "Runtime font decode errors in browser",
+      "steps": "Open `http://127.0.0.1:5173/` in browser and inspect console.",
+      "expected": "No font decoding/parsing warnings.",
+      "actual": "Console shows multiple 'Failed to decode downloaded font' and 'OTS parsing error: invalid sfntVersion' warnings.",
+      "severity": "medium"
+    }
+  ],
+  "verdict": "FAIL"
+}
